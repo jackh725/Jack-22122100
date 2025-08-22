@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';  // import useEffect
 import PhoneList from './PhoneList.js';
+import CompanyList from "./CompanyList"; // import CompanyList  
+
 
 function Contact(props) {
     const {contact, contacts, setContacts} = props;
@@ -35,14 +37,19 @@ function Contact(props) {
 
     return (
         <div key={contact.id} className='contact' onClick={(e) => setExpanded(!expanded)}>
-            <div className='title'>
-                <h3>{contact.name}</h3>
-                <button className='button red' onClick={doDelete}>Delete</button>
+        
+            <div className='summary'>
+                <h3>Contact Summary:</h3>
+                <p><strong>Name:</strong> {contact.name}</p>
+                <p><strong>Address:</strong> {contact.address}</p>
+                <p><em>Click the contact to expand or collapse {contact.name}'s phone list</em></p>
+                <button className='button red' onClick={doDelete}>Delete Contact</button>
             </div>
-
-            <div style={expandStyle}>
+           
+            <div style={expandStyle} onClick={(e) => e.stopPropagation()}>
                 <hr />
                 <PhoneList phones={phones} setPhones={setPhones} contact={contact} />
+                <CompanyList contactId={contact.id} />
             </div>
         </div>
     );

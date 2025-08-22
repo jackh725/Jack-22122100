@@ -8,6 +8,10 @@ module.exports = (sequelize, Sequelize) => {
         name: {
             type: Sequelize.STRING
         },
+        address: {
+            type: Sequelize.STRING,
+            allowNull: true,   // Allow null for address
+        }
     });
 
     return Contact;
