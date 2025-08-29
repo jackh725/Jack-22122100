@@ -18,37 +18,40 @@ const AddCompany = ({ contactId, onAdd }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        onAdd(data);
+        onAdd(data); 
         setName("");
         setAddress("");
       })
       .catch((err) => console.error(err));
   };
 
-  
-    // Render the form for adding a new company
+
     return (
         <div className="add-company">
-        <hr/>
-        <h4>Companies</h4>
-        <form onSubmit={handleSubmit} className="new-phone">
-            
-        <input
-            type="text"
-            placeholder="Company Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-        />
-        <input
-            type="text"
-            placeholder="Address"
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-        />
-        <button className='button green'type="submit">Add Company</button>
-        </form>
+          <h4>Companies</h4>
+          <hr />
+          <form onSubmit={handleSubmit} className="new-phone">
+            <input
+              type="text"
+              placeholder="Company Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+            <input
+              type="text"
+              placeholder="Address"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+            />
+            <button className="button green" type="submit">
+              Add Company
+            </button>
+          </form>
         </div>
-    );
-};
+      );
+    };
 
-export default AddCompany;
+    export default AddCompany;
+    
+    

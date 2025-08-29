@@ -66,29 +66,52 @@ exports.findOne = (req, res) => {
 };
 
 // Update one company by id
+// exports.update = (req, res) => {
+//     const id = req.params.companyId;
+
+//     Company.update(req.body, {
+//         where: { company_id: id }
+//     })
+//     .then(num => {
+//         if (num == 1) {
+//             res.send({
+//                 message: "Company was updated successfully."
+//             });
+//         } else {
+//             res.send({
+//                 message: `Cannot update Company with id=${id}. Maybe not found or body is empty.`
+//             });
+//         }
+//     })
+//     .catch(err => {
+//         res.status(500).send({
+//             message: "Error updating Company with id=" + id
+//         });
+//     });
+// };
+
+// Update one company by id
 exports.update = (req, res) => {
     const id = req.params.companyId;
-
+  
     Company.update(req.body, {
-        where: { company_id: id }
+      where: { company_id: id }
     })
     .then(num => {
-        if (num == 1) {
-            res.send({
-                message: "Company was updated successfully."
-            });
-        } else {
-            res.send({
-                message: `Cannot update Company with id=${id}. Maybe not found or body is empty.`
-            });
-        }
+      if (num == 1) {
+        return Company.findByPk(id);   
+      } else {
+        throw new Error(`Cannot update Company with id=${id}`);
+      }
     })
+    .then(updated => res.send(updated))
     .catch(err => {
-        res.status(500).send({
-            message: "Error updating Company with id=" + id
-        });
+      res.status(500).send({
+        message: err.message || "Error updating Company with id=" + id
+      });
     });
 };
+  
 
 
 // Delete one contact by id
